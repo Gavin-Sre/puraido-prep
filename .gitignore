@@ -1,0 +1,51 @@
+# Maven build files
+/target/
+!.mvn/wrapper/maven-wrapper.jar
+.mvn/
+
+# Gradle build files (if using Gradle)
+.gradle/
+build/
+
+# Logs
+*.log
+
+# IntelliJ
+.idea/
+*.iml
+*.iws
+out/
+
+# Eclipse
+.project
+.classpath
+.settings/
+
+# VS Code
+.vscode/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Environment config
+.env
+application-local.properties
+application-dev.properties
+application-test.properties
+application-prod.properties
+
+# Test coverage & reports
+coverage/
+jacoco.exec
+
+# Database
+*.h2.db
+*.mv.db
+
+# Java
+*.class
+
+# Temporary files
+*.tmp
+*.swp
