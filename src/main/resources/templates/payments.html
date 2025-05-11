@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Payment History</title>
+  </head>
+  <body>
+    <h1>Payment History</h1>
+    <table border="1" id="paymentTable">
+      <thead>
+        <tr>
+          <th style="cursor: pointer" onclick="sortTable(0)">ID</th>
+          <th style="cursor: pointer" onclick="sortTable(1)">Amount</th>
+          <th style="cursor: pointer" onclick="sortTable(2)">Currency</th>
+          <th style="cursor: pointer" onclick="sortTable(3)">Method</th>
+          <th style="cursor: pointer" onclick="sortTable(4)">Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="payment : ${payments}">
+          <td th:text="${payment.id}">1</td>
+          <td th:text="${payment.amount}">100.0</td>
+          <td th:text="${payment.currency}">USD</td>
+          <td th:text="${payment.paymentMethod}">Credit Card</td>
+          <td th:text="${payment.createdAt}">2024-01-01</td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+  <script th:src="@{/js/payments.js}"></script>
+</html>

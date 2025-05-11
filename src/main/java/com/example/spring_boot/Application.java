@@ -32,3 +32,11 @@ public class Application {
 }
 
 
+// curl -X POST http://localhost:8080/ \
+//   -H "Content-Type: application/json" \
+//   -d '{
+//     "username": "gsree",
+//     "amount": 1500.00,
+//     "currency": "THB",
+//     "paymentMethod": "CREDIT_CARD"
+//   }'

@@ -6,11 +6,13 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import com.example.spring_boot.entity.Payment;
+import com.example.spring_boot.entity.User;
 
 @Repository
 public interface PaymentRepository extends CrudRepository<Payment, Long> {
 
-  public List<Payment> findByUserId(String userId);
+  public List<Payment> findByUser(User user);
+
 
   // Native SQL query to find students by email
   //   @Query(value = "SELECT * FROM students WHERE email = :email", nativeQuery = true)

@@ -8,7 +8,6 @@ import com.example.spring_boot.enums.PaymentMethod;
 import jakarta.persistence.Column;
 
 public class PaymentDto {
-  private String message;
 
   private String username;
 
@@ -19,11 +18,6 @@ public class PaymentDto {
   private PaymentMethod paymentMethod;
 
   public PaymentDto() {
-  }
-
-  public PaymentDto(Double amount, String message) {
-    this.amount = amount;
-    this.message = message;
   }
 
   @Column(name = "created_at", nullable = false, updatable = false)
@@ -68,7 +62,6 @@ public class PaymentDto {
   public String toString() {
       return "PaymentDto{" +
               "amount=" + amount +
-              ", message='" + message + '\'' +
               '}';
   }
 }

@@ -10,6 +10,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -19,7 +21,9 @@ public class Payment {
   @GeneratedValue(strategy =  GenerationType.IDENTITY)
   private Long id;
 
-  private String username;
+  @ManyToOne
+  @JoinColumn(nullable = false)
+  private User user;
 
   private Double amount;
 
@@ -29,6 +33,22 @@ public class Payment {
 
   @Column(name = "created_at", nullable = false, updatable = false)
   private LocalDateTime createdAt = LocalDateTime.now();
+
+  public Payment() {
+
+  }
+
+  public Payment(
+    User user,
+    Double amount,
+    Currency currency,
+    PaymentMethod paymentMethod
+  ) {
+    this.user = user;
+    this.amount = amount;
+    this.currency = currency;
+    this.paymentMethod = paymentMethod;
+  }
 
   // Getters and Setters
 
@@ -40,12 +60,12 @@ public class Payment {
       this.id = id;
   }
 
-  public String getUsername() {
-    return username;
+  public User getUser() {
+    return user;
   }
 
-  public void setUsername(String username) {
-    this.username = username;
+  public void setUser(User user) {
+    this.user = user;
   }
 
   public Double getAmount() {
