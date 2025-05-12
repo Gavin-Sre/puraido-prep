@@ -11,22 +11,28 @@ import org.springframework.web.server.ResponseStatusException;
 import com.example.spring_boot.dto.PaymentDto;
 import com.example.spring_boot.entity.Payment;
 import com.example.spring_boot.entity.User;
+import com.example.spring_boot.processor.PaymentProcessor;
+import com.example.spring_boot.processor.PaymentProcessorFactory;
+import com.example.spring_boot.processor.PaymentResult;
 import com.example.spring_boot.repository.PaymentRepository;
 import com.example.spring_boot.repository.UserRepository;
 
 @Service
 public class PaymentService {
   private static final Logger log = LoggerFactory.getLogger(PaymentService.class);
-
+  
+  private final PaymentProcessorFactory processorFactory;
   private PaymentRepository paymentRepository;
   private UserRepository userRepository;
 
   public PaymentService(
     PaymentRepository paymentRepository,
-    UserRepository userRepository
+    UserRepository userRepository,
+    PaymentProcessorFactory processorFactory
     ) {
     this.paymentRepository = paymentRepository;
     this.userRepository = userRepository;
+    this.processorFactory = processorFactory;
   }
 
   public Payment createPayment(PaymentDto dto) {
@@ -46,7 +52,15 @@ public class PaymentService {
     
     payment.setPaymentMethod(dto.getPaymentMethod());
 
-    return paymentRepository.save(payment);
+    
+    // Prcess payment
+    PaymentProcessor processor = processorFactory.getProcessor(dto.getPaymentMethod());
+    PaymentResult result = processor.processPayment(payment);
+    if (result.isSuccess()) {
+      return paymentRepository.save(payment);
+    } else {
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Payment processing failed");
+    }    
   }
 
   public List<Payment> getUserPayment(String username) {
